@@ -1,0 +1,45 @@
+//WAP to convert decimal number to hexadecimal numbers.
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+    int num;
+    char hex[10]="";
+    printf("Enter the number :");
+    scanf("%d",&num);
+    int temp = num ;
+    while(num != 0){
+        int rem = num%16;
+        char str[2];
+        if(rem >= 0 && rem <= 9){
+            sprintf(str , "%d" , rem);
+        }
+        else if(rem == 10){
+            str[0] = 'A';
+        }
+        else if(rem == 11){
+            str[0] = 'B';
+        }
+        else if(rem == 12){
+            str[0] = 'C';
+        }
+        else if(rem == 13){
+            str[0] = 'D';
+        }
+        else if(rem == 14){
+            str[0] = 'E';
+        }
+        else{
+            str[0] = 'F';
+        }
+        str[1] = '\0';
+        strcat(hex,str);
+        num = num/16;
+    }
+    int l = strlen(hex);
+    printf("Hexadecimal of %d is ",temp);
+    for(int i=l-1 ; i>=0 ; i--){
+       printf("%c",hex[i]); 
+    }
+    return 0;
+}
