@@ -1,0 +1,28 @@
+//WAP to convert binary number to octal number.
+#include<stdio.h>
+int deci(int num){
+    int sum =0;
+    int base =1;
+    while(num!=0){
+        int rem = num%10;
+        sum = rem * base ;
+        base = base * 2;
+        num = num/10;
+    }
+    return sum;
+}
+int main(){
+    int n;
+    printf("Enter the binary number :");
+    scanf("%d",&n);
+    int oct = 0 , place = 1;
+    while(n!=0){
+        int rem = n%1000;
+        int dec = deci(n);
+        oct = oct + dec  * place;
+        place = place *10;
+        n=n/1000;
+    }
+   printf("Octal number : %o",oct); 
+   return 0;
+}
