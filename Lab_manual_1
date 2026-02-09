@@ -1,0 +1,84 @@
+#include<stdio.h>
+#define MAX 100
+int list[MAX];
+int n=0;
+void insertinbeg(int value){
+    if(n==MAX){
+        printf("List is full !!!");
+        return;
+    }
+    for(int i=n-1 ; i>= 0 ;i--){
+        list[i+1]=list[i];
+    }
+    list[0] = value;
+    n++;
+    printf("Element inserted in beginning.\n");
+}
+
+void displaylist(){
+    if(n==0){
+        printf("List is empty.\n");
+        return;
+    }
+    for(int i = 0 ; i<n ; i++){
+        printf("%d\t", list[i]);
+    }
+    printf("\n");
+}
+
+void insertinend(int value){
+    if(n==MAX){
+        printf("List is full !!");
+    }
+    list[n++] = value;
+    printf("Element inserted at the end.");
+}
+
+int main(){
+    while(1){
+        printf("1. Insert in beginning.\n");
+        printf("2. Insert element in last.\n");
+        printf("3. Insert element at specified position.\n");
+        printf("4. Delete from beginning.\n");
+        printf("5. Delete from end.\n");
+        printf("6. Delete from specific position.\n");
+        printf("7. Display list.\n");
+        printf("8. search element in list.\n");
+        printf("9. Update list element.\n");
+        printf("10.Sort elemnts of list.\n");
+    }
+    int choice, data;
+    printf("Enter your choice :");
+    scanf("%d",&choice);
+    switch(choice){
+        case 1:
+          printf("Enter data :");
+          scanf("%d",&data);
+          insertinbeg(data);
+          break;
+        case 2:
+         printf("Enter the data: ");
+         scanf("%d",&data); 
+         insertinend(data);
+         break;
+        case 3:
+         break;
+        case 4:
+         break;
+        case 5:
+         break;
+        case 6:
+         break;
+        case 7:
+         break;
+        case 8:
+         break;
+        case 9:
+         break;
+        case 10:
+         break;
+        default:
+         printf("INVALID CHOICE!!");
+    }
+    return 0;
+}
