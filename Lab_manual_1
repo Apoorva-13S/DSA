@@ -15,6 +15,70 @@ void insertinbeg(int value){
     printf("Element inserted in beginning.\n");
 }
 
+void insertinend(int value){
+    if(n==MAX){
+        printf("List is full !!");
+        return;
+    }
+    list[n++] = value;
+    printf("Element inserted at the end.");
+}
+
+void insertatpos(int pos , int value){
+     if(n==MAX){
+        printf("List is full !!\n");
+        return ;
+    }
+    else if(pos<0 || pos>=n){
+        printf("Invalid Positon\n");
+    }
+    else{
+        for(int i = n-1 ;i>pos ; i--){
+            list[i+1]=list[i];
+        }
+        list[pos] = value;
+        n++;
+        printf("Element Inserted.\n");
+    }
+}
+
+void deletefrombeg(){
+    if(n==0){
+        printf("List is Empty!!\n");
+        return ;
+    }
+    for(int i=0 ; i<n ;i++){
+        list[i]=list[i+1];
+    }
+    n--;
+    printf("Element deleted.\n");
+}
+
+void deletefromend(){
+    if(n==0){
+        printf("List is Empty!!\n");
+        return;
+    }
+    n--;
+    printf("Element deleted.\n");
+}
+
+void deleteatpos(int pos){
+    if(n==0){
+        printf("List is Empty!!\n");
+        return ;
+    }
+    if(pos<0 || pos>=n){
+        printf("Invalid Positon\n");
+        return;
+    }
+    for(int i=pos ; i<n ; i++){
+        list[i]=list[i+1];
+    }
+    n--;
+    printf("Element Deleted!!\n");
+}
+
 void displaylist(){
     if(n==0){
         printf("List is empty.\n");
@@ -26,12 +90,37 @@ void displaylist(){
     printf("\n");
 }
 
-void insertinend(int value){
-    if(n==MAX){
-        printf("List is full !!");
+int search(int value){   //linear search
+   for(int i=0;i<n;i++){
+    if(list[i]=value){
+        return i;
     }
-    list[n++] = value;
-    printf("Element inserted at the end.");
+    return -1;
+   }
+}
+
+void updation(int pos ,int value){
+    if(n==0){
+        printf("list is empty!!");
+        return;
+    }
+     if(pos<0 || pos>=n){
+        printf("Invalid Positon\n");
+        return;
+    }
+    list[pos] = value ;
+    printf("Element updated !!\n");
+}
+void bubblesort(){
+    for(int i=0 ;i<n-1;i++){
+        for(int j=0 ; j<n ;j++){
+            if(list[j] > list[j+1]){
+                int temp = list[j];
+                list[j] = list[j+1];
+                list[j+1] = temp;
+            }
+        }
+    }
 }
 
 int main(){
@@ -46,8 +135,8 @@ int main(){
         printf("8. search element in list.\n");
         printf("9. Update list element.\n");
         printf("10.Sort elemnts of list.\n");
-    }
-    int choice, data;
+    
+    int choice, data,pos;
     printf("Enter your choice :");
     scanf("%d",&choice);
     switch(choice){
@@ -62,23 +151,50 @@ int main(){
          insertinend(data);
          break;
         case 3:
+        printf("Enter position :");
+        scanf("%d",&pos);
+        printf("Enter data");
+        scanf("%d",&data);
+        insertatpos(pos,data);
          break;
         case 4:
+        deletefrombeg();
          break;
         case 5:
+        deletefromend();
          break;
         case 6:
+        printf("Enter position :");
+        scanf("%d",&pos);
+        deleteatpos(pos);
          break;
         case 7:
+        displaylist();
          break;
         case 8:
+        printf("Enter the element which needs to be searched :");
+        scanf("%d",&data);
+        int index = search(data);
+        if(index!=-1){
+        printf("Element found at index %d",index);
+        }
+        else{
+            printf("Element not found");
+        }
          break;
         case 9:
+        printf("Enter position :");
+        scanf("%d",&pos);
+        printf("Enter new value :");
+        scanf("%d",&data);
+        updation(pos,data);
          break;
         case 10:
+        bubblesort();
          break;
         default:
          printf("INVALID CHOICE!!");
     }
+}
     return 0;
 }
