@@ -1,0 +1,35 @@
+#include<stdio.h>
+#define MAX 100
+int queue[MAX] , front = -1 , rear = -1 ;
+int isfull(){
+    if(rear == MAX - 1)
+      return 1;
+    return 0;
+}
+int isempty(){
+    if(front = -1)
+       return 1;
+    return 0;
+}
+void enqueue(int val){
+    if(isfull())
+        printf("Overflow\n");
+    queue[++rear] = val;
+    if(front = -1)
+        front = rear;
+    printf("\nValue inserted in the queue.\n");
+}
+ int dequeue(){
+    if(isempty())
+       printf("Underflow.\n");
+    int val = queue[front++];
+    if(front>rear)
+        front = rear = -1;
+    return val;
+ }
+ int main(){
+    int a;
+    scanf("%d",&a);
+    enqueue(a);
+    return 0;
+ }
