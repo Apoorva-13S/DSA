@@ -70,6 +70,15 @@ void insertatpos(int data , int pos){                  // 0 based
     }
    }
 }
+void deletefrombeg(){
+    if(head == NULL){
+        printf("List is Empty.\n");
+    }
+    else{
+        head=head->next;
+        printf("Node deleted.\n");
+    }
+}
 void display(){
     if(head == NULL){
         printf("List is empty.");
@@ -111,6 +120,7 @@ int main(){
                 insertatpos(data,pos);  
                 break;
             case 4:
+                deletefrombeg();
                 break;
             case 5:
                 break;
@@ -127,3 +137,4 @@ int main(){
     }
     return 0;
 }
+
