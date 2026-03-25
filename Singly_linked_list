@@ -1,0 +1,129 @@
+//Singly linked list
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+struct Node{
+    int data;
+    struct Node* next;
+};
+struct Node* head=NULL;
+struct Node* createNode(int data){
+    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
+    temp -> data = data;
+    temp -> next = NULL;
+    return temp;
+}
+void insertinBeg(int data){
+    struct Node* newNode = createNode(data);
+    if(head == NULL){
+        head = newNode;
+    }
+    else{
+        newNode->next = head;
+        head = newNode;
+   }
+   printf("Node inserted in beginning.");
+}
+
+void insertinend(int data){
+    struct Node* newNode = createNode(data);
+    if(head == NULL){
+        head = newNode;
+    }
+    else{
+        struct Node* temp = head ;
+        while(temp->next != NULL){
+            temp=temp->next;
+        }
+        temp->next = newNode;
+   }
+   printf("Node inserted at end.");
+}
+
+void insertatpos(int data , int pos){                  // 0 based
+   if(head == NULL){
+    printf("List is empty.");
+   }
+   else if(pos==0){
+    insertinBeg(data);
+   }
+   else{
+    struct Node* temp = head;
+    int i=0;
+    while(temp != NULL){
+        if(i==pos-1){
+            break;
+        }
+        temp = temp->next;
+        i++;
+    }
+    if(temp == NULL || temp->next ==NULL){                      // we can do this using flag as well.
+        // the second condition > reason that we might give the 4 pos in a zero based series when we only have 4 members . in this case we cant insert at ene because position doesnt exists
+        printf("Invalid position!!\n"); 
+    }
+    else{
+        struct Node* newNode = createNode(data);
+        newNode-> next= temp->next;             // connected new node to the next one first.
+        temp->next = newNode;                  // connected new node to the first temp now.
+        printf("Node inserted.\n");                //if we'd do opp then we must store address of next one in a third variable.
+    }
+   }
+}
+void display(){
+    if(head == NULL){
+        printf("List is empty.");
+    }
+    else{
+        struct Node* temp = head ;     //it  is a pointer which points to head (first node).
+        while(temp != NULL){
+            printf("%d ",temp->data);
+            temp = temp->next;
+        }
+    }
+}
+int main(){
+    while(1){
+        printf("\n-_____Singley Linked list _____-\n");
+        printf("1. Insert In Beginning\n");
+        printf("2. Insert In end\n");
+        printf("3. Insert At Specific Position\n");
+        printf("4. Delete from Beginning\n");
+        printf("5. Delete from end\n");
+        printf("6. Delete from any position\n");
+        printf("7. Display List\n");
+        printf("8. Search element in list\n");
+        printf("9. Exit\n");
+        int choice, data, pos;
+        printf("Enter Choice: ");
+        scanf("%d", &choice);
+        switch(choice){
+            case 1:
+               scanf("%d",&data);
+               insertinbeg(data);
+               break;
+            case 2:
+               scanf("%d",&data);
+               insertinend(data);
+               break; 
+            case 3:
+                scanf("%d",&data);
+                insertatpos(data,pos);  
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                display();
+                break;
+            case 8:
+                break;
+            case 9:
+                break;
+        }
+    }
+    return 0;
+}
