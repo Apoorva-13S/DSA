@@ -79,6 +79,65 @@ void deletefrombeg(){
         printf("Node deleted.\n");
     }
 }
+void deletefromend(){
+    if(head==NULL){
+        printf("List is Empty.\n");
+    }
+    else if(head->next == NULL){
+        head = NULL;
+    }
+    else{
+        struct Node* temp = head->next;    
+        while(temp->next !=NULL){
+            temp = temp -> next;
+        }
+        temp=NULL;
+        printf("Node deleted.\n");
+    }
+}
+
+void deletefrompos(int pos){           // 0 based.
+    if(head==NULL){
+        printf("List is Empty.\n");
+    }
+    else if(pos==0){
+        deletefrombeg();
+    }
+    else{
+        struct Node* temp = head;
+        int i=0;
+        while(temp != NULL){
+            if(i==pos-1){
+                break;
+            }
+            temp = temp->next;
+            i++;
+        }
+        if(temp == NULL || temp->next ==NULL){
+            printf("Invalid Positon.\n");
+        }
+        else{
+            temp->next = temp->next->next;
+            printf("Node deleted.\n");
+        }
+    }
+}
+void search(int val){
+    if(head==NULL){
+        printf("List is Empty.\n");
+    }
+    else{
+         struct Node* temp = head;
+        while(temp != NULL){
+            if(temp->data == val){
+                printf("Found.\n");
+                return;
+            }
+            temp = temp->next;
+        }
+        printf("Not Found.\n");
+    }
+}
 void display(){
     if(head == NULL){
         printf("List is empty.");
@@ -109,7 +168,7 @@ int main(){
         switch(choice){
             case 1:
                scanf("%d",&data);
-               insertinbeg(data);
+               insertinBeg(data);
                break;
             case 2:
                scanf("%d",&data);
@@ -123,18 +182,23 @@ int main(){
                 deletefrombeg();
                 break;
             case 5:
+                deletefromend();
                 break;
             case 6:
+                scanf("%d",&pos);
+                deletefrompos(pos);
                 break;
             case 7:
                 display();
                 break;
             case 8:
+            scanf("%d",&data);
+                search(data);
                 break;
             case 9:
+                exit(0);
                 break;
         }
     }
     return 0;
 }
-
