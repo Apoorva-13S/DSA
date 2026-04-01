@@ -1,0 +1,213 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    struct node* prev;
+    int data;
+    struct node* next;
+};
+struct node* head = NULL;
+struct node* tail = NULL;
+struct node* createnode(int data){
+    struct node* temp = (struct node*)malloc(sizeof(struct node));
+    temp->data= data;
+    temp->prev=temp->next = NULL;   //since a new node is created it will have null before and after it.
+    return temp;
+};
+void insertatbeg(int data){
+    struct node* newnode = createnode(data);
+    if(head==NULL && tail==NULL){                    //check both just in case
+        head = tail = newnode;
+    }
+    else{
+        newnode->next=head;      //because new node is inserted before head.
+        head->prev=newnode;
+        head=newnode;           //again make the first node head.
+    }
+    printf("\n....Node inserted in the Beginning....\n");
+}
+void insertatend(int data){
+    struct node* newnode = createnode(data);
+    if(head==NULL && tail == NULL){
+        head = tail = newnode;
+    }
+    else{
+        tail->next=newnode;
+        newnode->prev=tail;
+        tail=newnode;
+    }
+     printf("\n....Node inserted in the End....\n");
+}
+void insertatpos(int data, int pos){
+    struct node* newnode = createnode(data);
+    if(head == NULL && tail == NULL && pos == 0){
+        struct node* newnode = createnode(data);
+        head=tail=newnode;                                              //or just write function
+        printf("...Node inserted at position %d...\n,pos");
+    }
+    else{
+        struct node* temp = head;
+        int i=0;
+        while(temp != NULL){
+            if(i=pos){
+               break;
+            }
+            temp=temp->next;
+            i++;
+        }
+        if(temp == NULL && i!= pos){                    //last condt to make sure that we dont have to insert at last
+            printf("\n....Invalid Position....\n");    
+        }
+        else if(i==pos){
+            struct node* newnode = createnode(data);
+            insertatend(data);                               //or just write the code.
+            printf("...Node inserted at position %d...\n,pos");
+        }
+        else{
+            struct node* newnode = createnode(data);
+            temp->prev->next=newnode;
+            newnode->prev=temp->prev;
+            newnode->next=temp;
+            temp->prev=newnode;
+            printf("...Node inserted at position %d...\n,pos");
+        }
+    }
+}
+void deletefrombeg(){
+    if(head==NULL && tail == NULL){
+        printf("\n....List is empty....\n");
+    }
+    else if(head==tail){       //or we can use condition head->next=NULL in case there is only one node
+        head=tail=NULL;
+        printf("\n...Node deleted from beginning...\n");
+    }
+    else{
+        struct node* delnode = tail;              //just to free the memory.
+        head = head-> next;
+        free(delnode);
+        printf("\n...Node deleted from beginning...\n");
+    }
+}
+void deletefromend(){
+    if(head==NULL && tail == NULL){
+        printf("\n....List is empty....\n");
+    }
+    else if(head==tail){       //or we can use condition head->next=NULL
+        struct node* delnode = head;
+        head=tail=NULL;
+        free(delnode);
+        printf("\n...Node deleted from end...\n");
+    }
+    else{
+        tail->prev->next = NULL;
+        tail = tail-> prev;
+        printf("\n...Node deleted from end...\n");
+    }
+}
+void deletefrompos(int data, int pos){
+    if(head==NULL && tail==NULL)
+      printf("\n...list is empty...\n");
+    else if(pos==0)
+        deletefrombeg();
+    else{
+        struct node* temp = head;
+        int i=0;
+        while(temp != NULL && i!=pos){
+            temp=temp->next;                            // we modified the code from insertion code can do the same there as well
+            i++;
+        }
+        if(temp==NULL && i!=pos){
+            printf("\n...Invalid Position...\n");
+        }
+        else if(i==pos){                                       //deletion from end basically or we can use temp->next=NULL.
+            struct node* newnode = createnode(data);
+            deletefromend(data);                               //or just write the code.
+            printf("...Node deleted from position %d...\n,pos");
+        }
+        else{                                                  //deletion from between
+            temp->prev->next=temp->next; 
+            temp->next->prev=temp->prev;
+            free(temp);
+        }
+    }
+}
+void search(int val){
+    if(head==NULL && tail ==NULL){
+        printf("List is Empty.\n");
+    }
+    else{
+         struct node* temp = head;
+        while(temp != NULL){
+            if(temp->data == val){
+                printf("Found.\n");
+                return;
+            }
+            temp = temp->next;
+        }
+        printf("Not Found.\n");
+    }
+}
+void display(){                            //in case of forward.
+     if(head==NULL && tail ==NULL){
+        printf("List is Empty.\n");
+    }
+    else{
+         struct node* temp = head;
+        while(temp != NULL){
+            printf("%d ",temp->data);
+            temp = temp->next;
+        }
+        printf("Not Found.\n");
+    }
+}
+int main(){
+    while(1){
+        printf("\n-_____Singley Linked list _____-\n");
+        printf("1. Insert In Beginning\n");
+        printf("2. Insert In end\n");
+        printf("3. Insert At Specific Position\n");
+        printf("4. Delete from Beginning\n");
+        printf("5. Delete from end\n");
+        printf("6. Delete from any position\n");
+        printf("7. Display List\n");
+        printf("8. Search element in list\n");
+        printf("9. Exit\n");
+        int choice, data, pos;
+        printf("Enter Choice: ");
+        scanf("%d", &choice);
+        switch(choice){
+            case 1:
+               scanf("%d",&data);
+               insertatbeg(data);
+               break;
+            case 2:
+               scanf("%d",&data);
+               insertatend(data);
+               break; 
+            case 3:
+                scanf("%d",&data);
+                insertatpos(data,pos);  
+                break;
+            case 4:
+                deletefrombeg();
+                break;
+            case 5:
+                deletefromend();
+                break;
+            case 6:
+                scanf("%d",&pos);
+                deletefrompos(data,pos);
+                break;
+            case 7:
+                display();
+                break;
+            case 8:
+            scanf("%d",&data);
+                search(data);
+                break;
+            case 9:
+                exit(0);
+                break;
+        }
+    }
+    return 0;
+}
