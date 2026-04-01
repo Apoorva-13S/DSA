@@ -42,10 +42,7 @@ void insertinend(int data){
 }
 
 void insertatpos(int data , int pos){                  // 0 based
-   if(head == NULL){
-    printf("List is empty.");
-   }
-   else if(pos==0){
+  if(head==NULL && pos==0){
     insertinBeg(data);
    }
    else{
