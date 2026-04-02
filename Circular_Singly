@@ -1,0 +1,166 @@
+//Circular Singly linked list //                           
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+struct Node{
+    int data;
+    struct Node* next;
+};
+struct Node* head=NULL;
+struct Node* createNode(int data){
+    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
+    temp -> data = data;
+    temp -> next = NULL;
+    return temp;
+}
+void insertinBeg(int data){
+   struct Node* newNode=createNode(data);
+   if(head==NULL){
+    head = newNode;
+    newNode->next = head;
+   }
+   else{
+    struct Node* temp = head;
+    while(temp->next!=head){
+        temp=temp->next;
+    }
+    temp->next=newNode;
+    newNode->next=head;
+    head=newNode;
+   }
+   printf("\nNode inserted..\n ");
+}
+
+void insertinend(int data){
+   struct Node* newNode=createNode(data);
+   if(head==NULL){
+    head = newNode;
+    newNode->next = head;
+   }
+   else{
+    struct Node* temp = head;
+    while(temp->next!=head){
+       temp=temp->next;
+    }
+    temp->next=newNode;
+    newNode->next=head;
+   }
+   printf("\nNode inserted.\n ");
+}
+
+void insertatpos(int data , int pos){
+    if(head==NULL){
+        if(pos==0)
+          insertinBeg(data);
+        else
+         printf("Invalid Position \n");
+
+    }
+    else{
+        struct Node* temp = head;
+        int i=0;
+        while(i<pos-1){
+         temp=temp->next; i++;
+        }
+        if(i==pos)
+            printf("Invalid Position \n");
+        else{
+            struct Node* newNode = createNode(data);
+            newNode->next=temp->next;
+            temp->next=newNode;
+        }
+    }
+}
+
+void deletefrompos(int pos){           // 0 based.
+   
+}
+void search(int val){
+   if(head==NULL){
+        printf("List is empty\n");
+    }
+    else{
+        struct Node* temp = head;
+        do{
+            if(temp->data == val){
+                printf("Found\n");
+                return;
+            }
+            temp=temp->next;
+        }
+        while(temp!=head);
+        printf("Data not found :/");
+    }
+}
+void display(){
+    if(head==NULL){
+        printf("List is empty\n");
+    }
+    else{
+        struct Node* temp = head;
+        do{
+            printf("%d ",temp->data);
+            temp=temp->next;
+        }
+        while(temp!=head);
+        printf("\n");
+    }
+}
+int main(){
+    while(1){
+        printf("\n-_____Circular Singley Linked list _____-\n");
+        printf("1. Insert In Beginning\n");
+        printf("2. Insert In end\n");
+        printf("3. Insert At Specific Position\n");
+        printf("4. Delete from Beginning\n");
+        printf("5. Delete from end\n");
+        printf("6. Delete from any position\n");
+        printf("7. Display List\n");
+        printf("8. Search element in list\n");
+        printf("9. Exit\n");
+        int choice, data, pos;
+        printf("Enter Choice: ");
+        scanf("%d", &choice);
+        switch(choice){
+            case 1:
+               printf("Enter data: ");
+               scanf("%d",&data);
+               insertinBeg(data);
+               break;
+            case 2:
+               printf("Enter data: ");
+               scanf("%d",&data);
+               insertinend(data);
+               break; 
+            case 3:
+                printf("Enter data: ");
+                scanf("%d",&data);
+                insertatpos(data,pos);  
+                break;
+            case 4:
+                
+                break;
+            case 5:
+           
+                break;
+            case 6:
+                printf("Enter position: ");
+                scanf("%d",&pos);
+                deletefrompos(pos);
+                break;
+            case 7:
+                display();
+                break;
+            case 8:
+                 printf("Enter data value to search: ");
+                scanf("%d",&data);
+                search(data);
+                break;
+            case 9:
+                exit(0);
+                break;
+        }
+    }
+    return 0;
+}
