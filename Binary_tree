@@ -83,3 +83,101 @@ int main(){
         }
     }
 }
+
+
+//Binary tree using dynamic queue.
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct node{
+    struct node* left;
+    int data;
+    struct node* right;
+} n; 
+n* createnode(int data){
+    n* temp = (n*)malloc(sizeof(n));
+    temp->data=data;
+    temp->left=temp->right=NULL;
+    return temp;
+}
+n* insert(n* root, int data){
+    if(root==NULL)
+       return createnode(data);
+    else{
+        n* queue[100];
+        int front = -1 , rear = -1;
+        queue[++rear]=root;
+        front++;                                                        
+        while(front<=rear){
+            n* temp = queue[front++];
+            if(temp->left==NULL){
+                temp->left = createnode(data);
+                break;
+            }
+            else if(temp->right==NULL){
+                temp->right = createnode(data);
+                break;
+            }
+            else{
+                queue[++rear]=temp->left;
+                queue[++rear]=temp->right;
+            }
+        }
+        return root;
+    }
+}
+void preorder(n* root){
+    if(root==NULL)
+        return;
+    printf("%d ",root->data);
+    preorder(root->left);
+    preorder(root->right);
+}
+void inorder(n* root){
+    if(root==NULL)
+        return;
+    inorder(root->left);
+    printf("%d ",root->data);
+    inorder(root->right);
+}
+void postorder(n* root){
+    if(root==NULL)
+        return;
+    postorder(root->left);
+    postorder(root->right);
+    printf("%d ",root->data);
+}
+int main(){
+    int choice,value;
+    n* root = NULL;
+    while(1){
+        printf("\n____-___Binary Tree Menu___-____\n");
+        printf("1. Insert\n");
+        printf("2. Pre-order Traversal\n");
+        printf("3. In-order Traversal\n");
+        printf("4. Post-order Traversal\n");
+        printf("5. Exit\n");
+        printf("Enter choice : ");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:
+              printf("Enter data to be inserted: ");
+              scanf("%d",&value);
+              root = insert(root,value);
+              break;
+            case 2:
+              preorder(root);
+              break;
+            case 3:
+              inorder(root);
+              break;
+            case 4:
+              postorder(root);
+              break;
+            case 5:
+              exit(root);
+              break;
+            default:
+              printf("Invalid choice!!\n");
+        }
+    }
+}
