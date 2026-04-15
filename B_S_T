@@ -1,0 +1,75 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define max 100
+int tree[max];
+void initialise(){                                       
+    for( int i=0 ; i<max; i++){
+        tree[i]=-1;
+    }
+}
+void insert(int index, int val){       
+    if(index>=max)
+        printf("Cannot insert node.\n");
+    else if(tree[index]==-1)
+        tree[index]=val;
+    else if(val<tree[index])
+        insert(2&index+1,val);
+    else
+        insert(2*index+2,val);
+}
+void preorder(int index){                                 //Root->Left->Right
+    if(index >= max || tree[index]==-1 )
+        return;
+    printf("%d ",tree[index]);
+    preorder(2*index+1);
+    preorder(2*index+2);
+}
+void inorder(int index){                                  //Left->Root->Right
+    if(tree[index]==-1 || index >= max)
+        return;
+    inorder(2*index+1);
+    printf("%d ",tree[index]);
+    inorder(2*index+2);
+}
+void postorder(int index){                                   //Left->Right->Root
+    if(tree[index]==-1 || index >= max)
+        return;
+    postorder(2*index+1);
+    postorder(2*index+2);
+    printf("%d ",tree[index]);
+}
+int main(){
+    int choice,value,idx=0;
+    while(1){
+        printf("\n____-___Binary Tree Menu___-____\n");
+        printf("1. Insert\n");
+        printf("2. Pre-order Traversal\n");
+        printf("3. In-order Traversal\n");
+        printf("4. Post-order Traversal\n");
+        printf("5. Exit\n");
+        printf("Enter choice : ");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:
+              printf("Enter data to be inserted: ");
+              scanf("%d",&value);
+              insert(idx,value);
+              break;
+            case 2:
+              preorder(0);
+              break;
+            case 3:
+              inorder(0);
+              break;
+            case 4:
+              postorder(0);
+              break;
+            case 5:
+              exit(0);
+              break;
+            default:
+              printf("Invalid choice!!\n");
+        }
+    }
+}
+}
